@@ -49,7 +49,7 @@ public class AddContactTests extends TestBase {
 
     }
 
-    @Test(priority = 1)
+    @Test(priority = 2)
     public void addContactNegativeWithIncorrectPhoneTest() {
         int i = (int) (System.currentTimeMillis() / 1000) % 3600;
 
@@ -67,9 +67,8 @@ public class AddContactTests extends TestBase {
         //click on save button
         click(By.xpath("//button[contains(.,'Save')]"));
 
-        //check Contact is added
-        Assert.assertTrue(isContactCreated("Leon"));
-
+        //verify alert appeared after fill form and click save button
+        Assert.assertTrue(isAlertPresent());
     }
 
 
