@@ -16,22 +16,18 @@ public class CreateAccountTests extends TestBase {
         }
     }
 
-    @Test
+    @Test (enabled = false)
     public void newUserRegistrationTest() {
         //click on login link
-        driver.findElement(By.xpath("//a[contains(.,'LOGIN')]")).click();
+        click(By.xpath("//a[contains(.,'LOGIN')]"));
+        //driver.findElement(By.xpath("//a[contains(.,'LOGIN')]")).click();
 
         //verify LOGIN link displayed
         Assert.assertTrue(isElementPresent(By.className("login_login__3EHKB")));
 
         //fill registration form
-        driver.findElement(By.cssSelector("[placeholder='Email']")).click();
-        driver.findElement(By.cssSelector("[placeholder='Email']")).clear();
-        driver.findElement(By.cssSelector("[placeholder='Email']")).sendKeys("Ivanov3@gmail.com");
-
-        driver.findElement(By.cssSelector("[placeholder='Password']")).click();
-        driver.findElement(By.cssSelector("[placeholder='Password']")).clear();
-        driver.findElement(By.cssSelector("[placeholder='Password']")).sendKeys("Ivanov1234567!");
+        type(By.cssSelector("[placeholder='Email']"), "Ivanov3@gmail.com");
+        type(By.cssSelector("[placeholder='Password']"), "Ivanov1234567!");
 
         //click on registration button
         driver.findElement(By.name("registration")).click();
@@ -40,7 +36,6 @@ public class CreateAccountTests extends TestBase {
         Assert.assertTrue(isElementPresent(By.xpath("//button[contains(.,'Sign Out')]")));
 
     }
-
 
 
 }

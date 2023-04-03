@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 public class HomePageTests extends TestBase{
 
-    @Test
+    @Test(priority = 1)
     public void openHomePageTest() {
         //check to displayed Home Component form
 //        isComponentFormPresent2();
