@@ -1,6 +1,5 @@
 package com.ait.phonebook;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -9,62 +8,57 @@ public class LoginTests extends TestBase{
 
     @BeforeMethod
     public void ensurePrecondition() {
-        if (!isElementPresent(By.xpath("//a[contains(.,'LOGIN')]"))) {
+        if (!app.getHeader().isLoginLinkPresent()) {
             //click on Sign out button
-            driver.findElement(By.xpath("//button[contains(.,'Sign Out')]")).click();
+            app.getUser().clickOnSignOutButton();
         }
     }
 
     @Test(priority = 1)
     public void loginRegisteredUserPositiveTest() {
         //click on login link
-        click(By.xpath("//a[contains(.,'LOGIN')]"));
+        app.getHeader().clickOnLoginLink();
 
         //fill login form
-        type(By.cssSelector("[placeholder='Email']"), "ivanov@gmail.com");
-        type(By.cssSelector("[placeholder='Password']"), "Ivanov12345!");
+        app.getUser().fillLoginRegForm(new User().setEmail("ivanov@gmail.com").setPassword("Ivanov12345!"));
 
         //click on Login button
-        click(By.name("login"));
+        app.getUser().clickOnLoginButton();
 
         //verify user Logged in
-        Assert.assertTrue(isElementPresent(By.xpath("//button[contains(.,'Sign Out')]")));
+        Assert.assertTrue(app.getUser().isSignOutButtonPresent());
     }
 
     @Test(priority = 2)
     public void loginRegisteredUserNegativeWithInvalidPasswordTest() {
         //click on login link
-        click(By.xpath("//a[contains(.,'LOGIN')]"));
+        app.getHeader().clickOnLoginLink();
 
         //fill login form
-        type(By.cssSelector("[placeholder='Email']"), "ivanov@gmail.com");
-        type(By.cssSelector("[placeholder='Password']"), "Ivanov12345");
+        app.getUser().fillLoginRegForm(new User().setEmail("ivanov@gmail.com").setPassword("Ivanov12345"));
 
         //click on Login button
-        click(By.name("login"));
-        pause(1000);
+        app.getUser().clickOnLoginButton();
+        app.getUser().pause(1000);
 
         //verify user Logged in
-        Assert.assertTrue(isAlertPresent());
+        Assert.assertTrue(app.getUser().isAlertPresent());
     }
 
     @Test(priority = 3)
     public void loginRegisteredUserNegativeWithInvalidEmailTest() {
         //click on login link
-        click(By.xpath("//a[contains(.,'LOGIN')]"));
+        app.getHeader().clickOnLoginLink();
 
         //fill login form
-        type(By.cssSelector("[placeholder='Email']"), "ivanov@@gmail.com");
-        type(By.cssSelector("[placeholder='Password']"), "Ivanov12345!");
+        app.getUser().fillLoginRegForm(new User().setEmail("ivanov@@gmail.com").setPassword("Ivanov12345!"));
 
         //click on Login button
-        click(By.name("login"));
-        pause(1000);
+        app.getUser().clickOnLoginButton();
+        app.getUser().pause(1000);
 
         //verify user Logged in
-        Assert.assertTrue(isAlertPresent());
+        Assert.assertTrue(app.getUser().isAlertPresent());
     }
-
-
 
 }
